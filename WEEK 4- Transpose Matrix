@@ -1,0 +1,18 @@
+class Solution {
+    public int[][] transpose(int[][] matrix) {
+        int rows = matrix.length;
+        int cols = matrix[0].length;
+        
+        // Create a new matrix with swapped dimensions
+        int[][] result = new int[cols][rows];
+        
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                // Map the old row/col to new col/row
+                result[c][r] = matrix[r][c];
+            }
+        }
+        
+        return result;
+    }
+}
