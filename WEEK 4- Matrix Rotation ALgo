@@ -1,0 +1,62 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int rows = sc.nextInt();
+        int cols = sc.nextInt();
+        int r = sc.nextInt();
+        
+        int[][] matrix = new int[rows][cols];
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = sc.nextInt();
+            }
+        }
+        
+        rotateMatrix(matrix, rows, cols, r);
+        
+        // Print the result
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                System.out.print(matrix[i][j] + " ");
+            }
+            System.out.println();
+        }
+        sc.close();
+    }
+
+    static void rotateMatrix(int[][] matrix, int rows, int cols, int r) {
+        int numLayers = Math.min(rows, cols) / 2;
+        
+        for (int layer = 0; layer < numLayers; layer++) {
+            List<Integer> layerElements = new ArrayList<>();
+            
+            // 1. Extract elements from the current layer (Counter-Clockwise)
+            // Left side (down)
+            for (int i = layer; i < rows - layer - 1; i++) layerElements.add(matrix[i][layer]);
+            // Bottom side (right)
+            for (int j = layer; j < cols - layer - 1; j++) layerElements.add(matrix[rows - layer - 1][j]);
+            // Right side (up)
+            for (int i = rows - layer - 1; i > layer; i--) layerElements.add(matrix[i][cols - layer - 1]);
+            // Top side (left)
+            for (int j = cols - layer - 1; j > layer; j--) layerElements.add(matrix[layer][j]);
+            
+            // 2. Rotate the elements
+            int size = layerElements.size();
+            int rotation = r % size;
+            List<Integer> rotated = new ArrayList<>(Collections.nCopies(size, 0));
+            for (int i = 0; i < size; i++) {
+                int newPos = (i + (size - rotation)) % size;
+                rotated.set(newPos, layerElements.get(i));
+            }
+            
+            // 3. Put elements back into the matrix
+            int index = 0;
+            for (int i = layer; i < rows - layer - 1; i++) matrix[i][layer] = rotated.get(index++);
+            for (int j = layer; j < cols - layer - 1; j++) matrix[rows - layer - 1][j] = rotated.get(index++);
+            for (int i = rows - layer - 1; i > layer; i--) matrix[i][cols - layer - 1] = rotated.get(index++);
+            for (int j = cols - layer - 1; j > layer; j--) matrix[layer][j] = rotated.get(index++);
+        }
+    }
+}
