@@ -1,0 +1,35 @@
+import java.io.*;
+import java.util.*;
+
+public class Solution {
+    public static String timeConversion(String s) {
+        // 1. Extract the period (AM/PM) and the time components
+        String period = s.substring(s.length() - 2); // "AM" or "PM"
+        int hour = Integer.parseInt(s.substring(0, 2));
+        String minutesAndSeconds = s.substring(2, 8); // ":MM:SS"
+
+        // 2. Handle AM logic
+        if (period.equals("AM")) {
+            if (hour == 12) {
+                return "00" + minutesAndSeconds;
+            } else {
+                return String.format("%02d", hour) + minutesAndSeconds;
+            }
+        } 
+        // 3. Handle PM logic
+        else {
+            if (hour != 12) {
+                hour += 12;
+            }
+            return String.format("%02d", hour) + minutesAndSeconds;
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        String s = scan.nextLine();
+        String result = timeConversion(s);
+        System.out.println(result);
+        scan.close();
+    }
+}
