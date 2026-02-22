@@ -1,0 +1,24 @@
+class Solution {
+    public boolean halvesAreAlike(String s) {
+        // Define all possible vowels for quick lookup
+        String vowels = "aeiouAEIOU";
+        
+        int n = s.length();
+        int firstHalfVowels = 0;
+        int secondHalfVowels = 0;
+
+        // Iterate through the string
+        for (int i = 0; i < n / 2; i++) {
+            // Check first half (index 0 to n/2 - 1)
+            if (vowels.indexOf(s.charAt(i)) != -1) {
+                firstHalfVowels++;
+            }
+            // Check second half (index n/2 to n - 1)
+            if (vowels.indexOf(s.charAt(i + n / 2)) != -1) {
+                secondHalfVowels++;
+            }
+        }
+
+        return firstHalfVowels == secondHalfVowels;
+    }
+}
