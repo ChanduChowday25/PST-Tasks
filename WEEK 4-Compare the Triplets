@@ -1,0 +1,37 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        // Reading Alice's scores
+        int a0 = sc.nextInt();
+        int a1 = sc.nextInt();
+        int a2 = sc.nextInt();
+
+        // Reading Bob's scores
+        int b0 = sc.nextInt();
+        int b1 = sc.nextInt();
+        int b2 = sc.nextInt();
+
+        int aliceScore = 0;
+        int bobScore = 0;
+
+        // Compare first category
+        if (a0 > b0) aliceScore++;
+        else if (a0 < b0) bobScore++;
+
+        // Compare second category
+        if (a1 > b1) aliceScore++;
+        else if (a1 < b1) bobScore++;
+
+        // Compare third category
+        if (a2 > b2) aliceScore++;
+        else if (a2 < b2) bobScore++;
+
+        // Output the results separated by a space
+        System.out.println(aliceScore + " " + bobScore);
+        
+        sc.close();
+    }
+}
