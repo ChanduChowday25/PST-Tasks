@@ -1,0 +1,40 @@
+import java.util.*;
+
+class Codechef {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        
+        // Read number of test cases
+        if (sc.hasNextInt()) {
+            int t = sc.nextInt();
+            while (t-- > 0) {
+                String s = sc.next();
+                int n = s.length();
+                
+                // Frequency arrays for both halves
+                int[] leftFreq = new int[26];
+                int[] rightFreq = new int[26];
+                
+                // Fill left frequency array (0 to n/2 - 1)
+                for (int i = 0; i < n / 2; i++) {
+                    leftFreq[s.charAt(i) - 'a']++;
+                }
+                
+                // Fill right frequency array (skip middle char if length is odd)
+                // If n=5, n/2=2. Right half starts at index 3 (index 2 is skipped)
+                int startRight = (n % 2 == 0) ? n / 2 : (n / 2) + 1;
+                for (int i = startRight; i < n; i++) {
+                    rightFreq[s.charAt(i) - 'a']++;
+                }
+                
+                // Compare frequency arrays
+                if (Arrays.equals(leftFreq, rightFreq)) {
+                    System.out.println("YES");
+                } else {
+                    System.out.println("NO");
+                }
+            }
+        }
+        sc.close();
+    }
+}
