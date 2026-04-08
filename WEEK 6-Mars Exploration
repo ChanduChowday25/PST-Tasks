@@ -1,0 +1,4 @@
+public class Solution {
+    public static int marsExploration(String s) {
+        int count = 0;
+        String pattern = "
