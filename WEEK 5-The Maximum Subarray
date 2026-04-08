@@ -1,0 +1,26 @@
+import java.util.*;
+
+class Result {
+    public static List<Integer> maxSubarray(List<Integer> arr) {
+        int maxSubar = arr.get(0);
+        int currentSubar = arr.get(0);
+        int maxSubseq = (arr.get(0) > 0) ? arr.get(0) : 0;
+        int absoluteMax = arr.get(0);
+
+        for (int i = 1; i < arr.size(); i++) {
+            int val = arr.get(i);
+            // Kadane's for Subarray
+            currentSubar = Math.max(val, currentSubar + val);
+            maxSubar = Math.max(maxSubar, currentSubar);
+            
+            // Subsequence logic
+            if (val > 0) maxSubseq += val;
+            if (val > absoluteMax) absoluteMax = val;
+        }
+
+        // If all numbers were negative, max subsequence is the largest negative number
+        if (maxSubseq == 0 && absoluteMax < 0) maxSubseq = absoluteMax;
+
+        return Arrays.asList(maxSubar, maxSubseq);
+    }
+}
